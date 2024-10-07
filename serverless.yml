@@ -13,12 +13,6 @@ provider:
     role: arn:aws:iam::676206943781:role/dev-db
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - httpApi:
-          path: /
-          method: get
   Signup:
     handler: functions/user/Signup/index.handler
     events:
