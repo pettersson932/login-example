@@ -1,0 +1,41 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: pettersson332
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: login-example
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: login-example
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::676206943781:role/dev-db
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+  Signup:
+    handler: functions/user/Signup/index.handler
+    events:
+      - httpApi:
+          path: /auth/signup
+          method: post
+
+resources:
+  Resources:
+    firstTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${env:TABLE_USER}
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
