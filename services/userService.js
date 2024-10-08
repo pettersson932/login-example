@@ -1,16 +1,12 @@
 const { db } = require("./db");
 
-async function createUser(username, password, tableName) {
+async function createUser(newUser, tableName) {
   const params = {
     TableName: tableName,
-    Item: {
-      username: username,
-      password: password,
-    },
+    Item: newUser,
   };
 
   try {
-    // const command = new PutItemCommand(params);
     await db.put(params);
     return { success: true };
   } catch (error) {
