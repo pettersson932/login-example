@@ -1,16 +1,16 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: pettersson332
+org: ${env:SERVERLESS_ORG}
 # "app" enables Serverless Framework Dashboard features and sharing them with other Services.
-app: login-example
+app: ${env:SERVERLESS_APP}
 # "service" is the name of this project. This will also be added to your AWS resource names.
-service: login-example
+service: ${env:SERVERLESS_SERVICE}
 
 provider:
   name: aws
   runtime: nodejs20.x
-  region: eu-north-1
+  region: ${env:AWS_REGION}
   iam:
-    role: arn:aws:iam::676206943781:role/dev-db
+    role: ${env:AWS_ROLE}
 
 functions:
   Signup:
