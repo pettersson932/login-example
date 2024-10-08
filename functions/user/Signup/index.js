@@ -1,4 +1,5 @@
 const { db } = require("../../../services/db");
+const { createUser } = require("../../../services/userService");
 require("dotenv").config();
 
 exports.handler = async (event) => {
@@ -7,15 +8,7 @@ exports.handler = async (event) => {
     console.log("username: ", username);
     console.log("password: ", password);
 
-    const params = {
-      TableName: process.env.TABLE_USER,
-      Item: {
-        username: username,
-        password: password,
-      },
-    };
-
-    await db.put(params);
+    await createUser(username, password, process.env.TABLE_USER);
 
     return {
       statusCode: 200,
